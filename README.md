@@ -19,7 +19,7 @@ Puedes comenzar seleccionando elementos:
 const $links = $('a')
 ```
 
-Y luego manipulando sus eventos:
+Y luego manipular sus eventos:
 
 ```js
 $links.on('click', e => {
