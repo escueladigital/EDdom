@@ -13,6 +13,19 @@ $ npm install escueladigital/EDdom
 
 Entra en la carpeta `play` del proyecto y empieza a jugar con EDdom dentro del archivo `index.html`.
 
+Puedes comenzar seleccionando elementos:
+
+```js
+const $links = $('a')
+```
+
+Y luego manipulando sus eventos:
+
+```js
+$links.on('click', e => {
+  console.log('Click detectado desde EDdom :)')
+})
+```
 
 ## Métodos implementados y por implementar
 
