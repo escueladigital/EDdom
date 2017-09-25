@@ -26,5 +26,5 @@ Entra en la carpeta `play` del proyecto y empieza a jugar con EDdom dentro del a
 - [x] **attr()**
 - [x] **append()**
 - [x] **prepend()**
-- [] **children()**
-- [] **parent()**
+- [ ] **children()**
+- [ ] **parent()**
