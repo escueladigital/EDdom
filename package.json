@@ -6,20 +6,19 @@
   "repository": "https://github.com/escueladigital/EDdom",
   "license": "GPLv2",
   "scripts": {
-    "transpile": "browserify src/ -o dist/ed-dom.js -s EDdom -t [ babelify ]",
+    "transpile": "rollup -c -f umd -i src/index.js -o dist/ed-dom.js -n EDdom",
     "minify": "uglifyjs -c -m -o dist/ed-dom.min.js -- dist/ed-dom.js",
     "build": "npm run transpile && npm run minify",
     "test": "ava test/**.spec.js"
   },
   "devDependencies": {
     "ava": "^0.22.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.24.1",
-    "babelify": "^7.3.0",
+    "babel-preset-env": "^1.6.0",
     "browser-env": "^3.2.0",
-    "browserify": "^14.4.0",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
     "uglify-js": "^3.1.2"
   },
   "ava": {
