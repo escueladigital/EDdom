@@ -487,6 +487,7 @@ var EDdom = (_class = function (_Stack) {
   };
 
   /**
+   * Añade al inicio los elementos dados como hijos de cada elemento de la colección
    *
    * @param {*} children
    *
