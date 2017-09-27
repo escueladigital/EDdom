@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "description": "Libreria minimalista para manipular el DOM fácilmente",
   "main": "dist/ed-dom.js",
-  "repository": "https://github.com/escueladigital/EDui",
-  "author": "Camilo Rodríguez <aeromotiondesign@gmail.com>",
-  "license": "MIT",
+  "repository": "https://github.com/escueladigital/EDdom",
+  "license": "GPLv2",
   "scripts": {
     "transpile": "browserify src/ -o dist/ed-dom.js -s EDdom -t [ babelify ]",
     "minify": "uglifyjs -c -m -o dist/ed-dom.min.js -- dist/ed-dom.js",
