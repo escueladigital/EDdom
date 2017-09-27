@@ -8,7 +8,7 @@
   "scripts": {
     "transpile": "rollup -c -f umd -i src/index.js -o dist/ed-dom.js -n EDdom",
     "minify": "uglifyjs -c -m -o dist/ed-dom.min.js -- dist/ed-dom.js",
-    "build": "npm run transpile && npm run minify",
+    "build": "npm run test && npm run transpile && npm run minify",
     "test": "ava test/**.spec.js"
   },
   "devDependencies": {
