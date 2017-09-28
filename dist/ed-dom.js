@@ -65,6 +65,9 @@ function isNullable(value) {
  *
  * @return {boolean}
  */
+function isElement(value) {
+  return value instanceof HTMLElement;
+}
 
 /**
  * Obtiene el tipo de selector
@@ -186,11 +189,18 @@ var Stack = function () {
    * @api public
    */
   Stack.prototype.add = function add() {
+    var _this = this;
+
     for (var _len = arguments.length, elements = Array(_len), _key = 0; _key < _len; _key++) {
       elements[_key] = arguments[_key];
     }
 
-    proto.push.apply(this, elements);
+    elements.forEach(function (element) {
+      if (isElement(element)) {
+        _this[_this.length++] = element;
+      }
+    });
+
     return this;
   };
 
@@ -301,9 +311,7 @@ var EDdom = (_class = function (_Stack) {
       _this.selector = selector;
     }
 
-    var elements = query(selector, _this.context);
-
-    if (isArrayLike(elements)) _this.add.apply(_this, elements);
+    _this.add.apply(_this, query(selector, _this.context) || []);
     return _this;
   }
 

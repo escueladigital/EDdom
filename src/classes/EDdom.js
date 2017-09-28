@@ -41,9 +41,7 @@ export default class EDdom extends Stack {
       this.selector = selector
     }
 
-    const elements = query(selector, this.context)
-
-    if (isArrayLike(elements)) this.add(...elements)
+    this.add(...(query(selector, this.context) || []))
   }
 
 
