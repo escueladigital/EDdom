@@ -129,5 +129,6 @@ test('#hasClass', t => {
 })
 
 
+test.todo('#attr')
 test.todo('#append')
 test.todo('#prepend')
