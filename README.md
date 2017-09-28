@@ -41,3 +41,9 @@ $links.on('click', e => {
 - [x] **prepend()**
 - [ ] **children()**
 - [ ] **parent()**
+- [ ] **clone()**
+- [ ] **css()**
+- [ ] **remove()**
+- [ ] **empty()**
+- [ ] **find()**
+- [ ] **trigger()**
