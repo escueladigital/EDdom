@@ -1,7 +1,11 @@
+import { isElement } from '../shared/utils'
+
+
 /**
  * @alias Array.prototype
  */
 const proto = Array.prototype
+
 
 // Clase encargada de emular algunos métodos de Array.prototype
 export default class Stack {
@@ -24,7 +28,12 @@ export default class Stack {
    * @api public
    */
   add (...elements) {
-    proto.push.apply(this, elements)
+    elements.forEach(element => {
+      if (isElement(element)) {
+        this[this.length++] = element
+      }
+    })
+
     return this
   }
 

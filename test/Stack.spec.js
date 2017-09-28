@@ -17,7 +17,7 @@ test.beforeEach('setup `Stack` class', () => {
 
 
 test('#add', t => {
-  stack.add(fakeDiv, fakeSpan)
+  stack.add(fakeDiv, 'invalid entry', fakeSpan, 123, false)
 
   t.is(stack.length, 2, 'length should be 2')
   t.is(stack[0], fakeDiv, 'index 0 should be `fakeDiv`')
@@ -44,10 +44,10 @@ test('#each', t => {
 
 
 test('#some', t => {
-  const stack = new Stack()
-  const correct = 'correct'
+  const fakeSpanClone = fakeSpan.cloneNode(true)
 
-  stack.add('inc', 'incorrect', correct, 'inct')
+  stack.add(fakeDiv, fakeSpan)
 
-  t.true(stack.some(item => item === correct), 'correct item')
+  t.true(stack.some(item => item === fakeSpan), 'should contain some `fakeSpan`')
+  t.false(stack.some(item => item === fakeSpanClone), 'should not contain `fakeSpanClone`')
 })
