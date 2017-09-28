@@ -351,9 +351,10 @@ var EDdom = (_class = function (_Stack) {
   };
 
   /**
-   * Añade una clase a todos los elementos en la colección
+   * Añade una o varias clases (separadas por espacios)
+   * a todos los elementos en la colección
    *
-   * @param {string} klass
+   * @param {string} classes
    *
    * @return {EDdom}
    *
@@ -361,8 +362,28 @@ var EDdom = (_class = function (_Stack) {
    */
 
 
-  EDdom.prototype.addClass = function addClass(element, klass) {
-    element.classList.add(klass);
+  EDdom.prototype.addClass = function addClass(element, classes) {
+    var _element$classList;
+
+    (_element$classList = element.classList).add.apply(_element$classList, classes.split(' '));
+  };
+
+  /**
+   * Remueve la o las clases (separadas por espacios)
+   * en todos los elementos de la colección
+   *
+   * @param {string} classes
+   *
+   * @return {EDdom}
+   *
+   * @api public
+   */
+
+
+  EDdom.prototype.removeClass = function removeClass(element, classes) {
+    var _element$classList2;
+
+    (_element$classList2 = element.classList).remove.apply(_element$classList2, classes.split(' '));
   };
 
   /**
@@ -378,21 +399,6 @@ var EDdom = (_class = function (_Stack) {
 
   EDdom.prototype.toggleClass = function toggleClass(element, klass) {
     element.classList.toggle(klass);
-  };
-
-  /**
-   * Remueve la clase dada en todos los elementos de la colección
-   *
-   * @param {string} klass
-   *
-   * @return {EDdom}
-   *
-   * @api public
-   */
-
-
-  EDdom.prototype.removeClass = function removeClass(element, klass) {
-    element.classList.remove(klass);
   };
 
   /**
@@ -512,7 +518,7 @@ var EDdom = (_class = function (_Stack) {
   };
 
   return EDdom;
-}(Stack), (_applyDecoratedDescriptor(_class.prototype, 'on', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'on'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'off', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'off'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'addClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'addClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'toggleClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'toggleClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'removeClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'removeClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'wrap', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'wrap'), _class.prototype)), _class);
+}(Stack), (_applyDecoratedDescriptor(_class.prototype, 'on', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'on'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'off', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'off'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'addClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'addClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'removeClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'removeClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'toggleClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'toggleClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'wrap', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'wrap'), _class.prototype)), _class);
 
 /**
  * Envoltura para evitar tener que instanciar la clase `EDdom`

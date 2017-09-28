@@ -15,8 +15,8 @@ test.beforeEach('setup HTML mock', () => {
     <nav class="simple-navigation">
       <ul class="menu" id="menu">
         <li class="item"><a href="#link-1">Link 1</a></li>
-        <li class="item"><a href="#link-2">Link 1</a></li>
-        <li class="item"><a href="#link-2">Link 1</a></li>
+        <li class="item active"><a href="#link-2">Link 2</a></li>
+        <li class="item"><a href="#link-3">Link 3</a></li>
       </ul>
     </nav>
   `
@@ -73,12 +73,23 @@ test('#off', t => {
 
 test('#addClass', t => {
   const $links = new EDdom('a', root)
-  const klass = 'link'
+  const classes = 'link link-hoverable'
 
-  $links.addClass(klass)
+  $links.addClass(classes)
 
   $links.each(({ className }, index) => {
-    t.is(className, klass, `className at index ${index} should be \`klass\``)
+    t.is(className, classes, `className at index ${index} should be \`classes\``)
+  })
+})
+
+
+test('#removeClass', t => {
+  const $items = new EDdom('li', root)
+
+  $items.removeClass('item active')
+
+  $items.each(({ className }, index) => {
+    t.is(className, '', `should remove \`item\` and \`active\` classes at index ${index}`)
   })
 })
 
@@ -97,17 +108,6 @@ test('#toggleClass', t => {
 
   $all.each(({ classList }, index) => {
     t.false(classList.contains(klass), `should remove \`element\` class at index ${index}`)
-  })
-})
-
-
-test('#removeClass', t => {
-  const $items = new EDdom('li', root)
-
-  $items.removeClass('item')
-
-  $items.each(({ className }, index) => {
-    t.is(className, '', `should remove \`item\` class at index ${index}`)
   })
 })
 

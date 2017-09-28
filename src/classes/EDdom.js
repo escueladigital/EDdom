@@ -84,17 +84,34 @@ export default class EDdom extends Stack {
 
 
   /**
-   * Añade una clase a todos los elementos en la colección
+   * Añade una o varias clases (separadas por espacios)
+   * a todos los elementos en la colección
    *
-   * @param {string} klass
+   * @param {string} classes
    *
    * @return {EDdom}
    *
    * @api public
    */
   @iterable
-  addClass (element, klass) {
-    element.classList.add(klass)
+  addClass (element, classes) {
+    element.classList.add(...classes.split(' '))
+  }
+
+
+  /**
+   * Remueve la o las clases (separadas por espacios)
+   * en todos los elementos de la colección
+   *
+   * @param {string} classes
+   *
+   * @return {EDdom}
+   *
+   * @api public
+   */
+  @iterable
+  removeClass (element, classes) {
+    element.classList.remove(...classes.split(' '))
   }
 
 
@@ -110,21 +127,6 @@ export default class EDdom extends Stack {
   @iterable
   toggleClass (element, klass) {
     element.classList.toggle(klass)
-  }
-
-
-  /**
-   * Remueve la clase dada en todos los elementos de la colección
-   *
-   * @param {string} klass
-   *
-   * @return {EDdom}
-   *
-   * @api public
-   */
-  @iterable
-  removeClass (element, klass) {
-    element.classList.remove(klass)
   }
 
 
