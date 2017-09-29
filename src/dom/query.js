@@ -12,7 +12,7 @@ const SELECTOR_TYPE_REGEX = /^([#.]?)[\w-]+$/
 /**
  * Consulta y obtiene elemento(s) del DOM
  *
- * @param {string|HTMLElement|NodeList|HTMLCollection} selector
+ * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
  * @param {HTMLElement} context
  *
  * @return {HTMLElement|NodeList|HTMLCollection|Array}

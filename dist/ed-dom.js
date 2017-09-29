@@ -70,6 +70,35 @@ function isElement(value) {
 }
 
 /**
+ * Itera todos los elementos y los pasa al método "decorado"
+ *
+ * @param {Object} proto
+ * @param {string} key
+ * @param {Object} descriptor
+ *
+ * @return void
+ *
+ * @api private
+ */
+var iterable = (function (proto, key, descriptor) {
+  var original = descriptor.value;
+
+  descriptor.value = function () {
+    var _this = this;
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    this.each(function (element) {
+      original.call.apply(original, [_this, element].concat(args));
+    });
+
+    return this;
+  };
+});
+
+/**
  * Obtiene el tipo de selector
  *
  * @type {RegExp}
@@ -79,7 +108,7 @@ var SELECTOR_TYPE_REGEX = /^([#.]?)[\w-]+$/;
 /**
  * Consulta y obtiene elemento(s) del DOM
  *
- * @param {string|HTMLElement|NodeList|HTMLCollection} selector
+ * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
  * @param {HTMLElement} context
  *
  * @return {HTMLElement|NodeList|HTMLCollection|Array}
@@ -127,43 +156,12 @@ function _getOptimumMethod(selector) {
   }
 }
 
-/**
- * Itera todos los elementos y los pasa al método "decorado"
- *
- * @param {Object} proto
- * @param {string} key
- * @param {Object} descriptor
- *
- * @return void
- *
- * @api private
- */
-var iterable = (function (proto, key, descriptor) {
-  var original = descriptor.value;
-
-  descriptor.value = function () {
-    var _this = this;
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    this.each(function (element) {
-      original.call.apply(original, [_this, element].concat(args));
-    });
-
-    return this;
-  };
-});
-
 function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * @alias Array.prototype
  */
 var proto = Array.prototype;
-
-// Clase encargada de emular algunos métodos de Array.prototype
 
 var Stack = function () {
   function Stack() {
@@ -182,24 +180,27 @@ var Stack = function () {
   /**
    * Añade elementos a la colección
    *
-   * @param {*} elements
+   * @param {string|HTMLElement|NodeList|HTMLCollection|Array} selector
+   * @param {HTMLElement=} context
    *
    * @return {Stack}
    *
    * @api public
    */
-  Stack.prototype.add = function add() {
+  Stack.prototype.add = function add(selector) {
     var _this = this;
 
-    for (var _len = arguments.length, elements = Array(_len), _key = 0; _key < _len; _key++) {
-      elements[_key] = arguments[_key];
-    }
+    var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.body;
 
-    elements.forEach(function (element) {
-      if (isElement(element)) {
-        _this[_this.length++] = element;
-      }
-    });
+    var elements = query(selector, context);
+
+    if (!isNullable(elements)) {
+      proto.forEach.call(elements, function (element) {
+        if (isElement(element)) {
+          _this[_this.length++] = element;
+        }
+      });
+    }
 
     return this;
   };
@@ -284,8 +285,8 @@ var EDdom = (_class = function (_Stack) {
    *
    * @constructor
    *
-   * @param {*} selector
-   * @param {*} context
+   * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
+   * @param {HTMLElement=} context
    */
 
 
@@ -303,15 +304,17 @@ var EDdom = (_class = function (_Stack) {
     _this.context = document.body;
 
 
-    if (!isNullable(context)) {
+    if (!isNullable(selector)) {
+      _this.add(selector, _this.context);
+
+      if (isString(selector)) {
+        _this.selector = selector;
+      }
+    }
+
+    if (isElement(context)) {
       _this.context = context;
     }
-
-    if (isString(selector)) {
-      _this.selector = selector;
-    }
-
-    _this.add.apply(_this, query(selector, _this.context) || []);
     return _this;
   }
 

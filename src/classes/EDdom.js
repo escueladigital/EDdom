@@ -1,5 +1,4 @@
-import { isString, isObject, isArrayLike, isNullable } from '../shared/utils'
-import query from '../dom/query'
+import { isString, isObject, isArrayLike, isNullable, isElement } from '../shared/utils'
 import iterable from '../decorators/iterable'
 import Stack from './Stack'
 
@@ -27,21 +26,23 @@ export default class EDdom extends Stack {
    *
    * @constructor
    *
-   * @param {*} selector
-   * @param {*} context
+   * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
+   * @param {HTMLElement=} context
    */
   constructor (selector, context) {
     super()
 
-    if (!isNullable(context)) {
+    if (!isNullable(selector)) {
+      this.add(selector, this.context)
+
+      if (isString(selector)) {
+        this.selector = selector
+      }
+    }
+
+    if (isElement(context)) {
       this.context = context
     }
-
-    if (isString(selector)) {
-      this.selector = selector
-    }
-
-    this.add(...(query(selector, this.context) || []))
   }
 
 

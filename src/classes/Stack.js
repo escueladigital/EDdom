@@ -1,4 +1,5 @@
-import { isElement } from '../shared/utils'
+import { isElement, isNullable } from '../shared/utils'
+import query from '../dom/query'
 
 
 /**
@@ -7,7 +8,6 @@ import { isElement } from '../shared/utils'
 const proto = Array.prototype
 
 
-// Clase encargada de emular algunos métodos de Array.prototype
 export default class Stack {
 
   /**
@@ -21,18 +21,23 @@ export default class Stack {
   /**
    * Añade elementos a la colección
    *
-   * @param {*} elements
+   * @param {string|HTMLElement|NodeList|HTMLCollection|Array} selector
+   * @param {HTMLElement=} context
    *
    * @return {Stack}
    *
    * @api public
    */
-  add (...elements) {
-    elements.forEach(element => {
-      if (isElement(element)) {
-        this[this.length++] = element
-      }
-    })
+  add (selector, context = document.body) {
+    const elements = query(selector, context)
+
+    if (!isNullable(elements)) {
+      proto.forEach.call(elements, element => {
+        if (isElement(element)) {
+          this[this.length++] = element
+        }
+      })
+    }
 
     return this
   }
