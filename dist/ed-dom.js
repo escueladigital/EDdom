@@ -547,11 +547,12 @@ function edDom() {
 }
 
 /**
- * Crea un elemento con los atributos y lo retorna como un EDdom object
+ * Crea un elemento con los atributos e hijos pasados,
+ * y lo retorna como un objeto EDdom
  *
  * @param {string} tag
- * @param {Object} attrs
- * @param {Array} children
+ * @param {(Object|Array)=} attrs
+ * @param {Array=} children
  *
  * @return {EDdom}
  *
@@ -560,6 +561,11 @@ function edDom() {
 edDom.create = function (tag) {
   var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var children = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+  if (Array.isArray(attrs)) {
+    children = attrs;
+    attrs = {};
+  }
 
   return edDom(document.createElement(tag)).attr(attrs).append(children);
 };

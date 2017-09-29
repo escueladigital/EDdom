@@ -14,17 +14,23 @@ export default function edDom (...args) {
 }
 
 /**
- * Crea un elemento con los atributos y lo retorna como un EDdom object
+ * Crea un elemento con los atributos e hijos pasados,
+ * y lo retorna como un objeto EDdom
  *
  * @param {string} tag
- * @param {Object} attrs
- * @param {Array} children
+ * @param {(Object|Array)=} attrs
+ * @param {Array=} children
  *
  * @return {EDdom}
  *
  * @api public
  */
 edDom.create = (tag, attrs = {}, children = []) => {
+  if (Array.isArray(attrs)) {
+    children = attrs
+    attrs = {}
+  }
+
   return edDom(document.createElement(tag)).attr(attrs).append(children)
 }
 
