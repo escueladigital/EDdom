@@ -151,9 +151,9 @@ function _getOptimumMethod(selector) {
       return 'getElementById';
     case '.':
       return 'getElementsByClassName';
-    default:
-      return 'getElementsByTagName';
   }
+
+  return 'getElementsByTagName';
 }
 
 function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -569,6 +569,9 @@ edDom.create = function (tag) {
 
   return edDom(document.createElement(tag)).attr(attrs).append(children);
 };
+
+// Exponemos la función interna
+edDom.query = query;
 
 // Definir un alias en caso de que no esté definido
 if (window.$ == null) window.$ = edDom;
