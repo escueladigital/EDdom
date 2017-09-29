@@ -7,9 +7,7 @@ import {
   isElement
 } from '../src/shared/utils'
 
-
 let fakes, fakeValues
-
 
 test.before('setup fakes', () => {
   fakes = {
@@ -33,13 +31,11 @@ test.before('setup fakes', () => {
   fakeValues = Object.values(fakes)
 })
 
-
 test('isString()', assertUtil(isString, ['string']))
 test('isArrayLike()', assertUtil(isArrayLike, ['arrayLike', 'array']))
 test('isObject()', assertUtil(isObject, ['object', 'array', 'arrayLike', 'element']))
 test('isNullable()', assertUtil(isNullable, ['undefined', 'null']))
 test('isElement', assertUtil(isElement, ['element']))
-
 
 function assertUtil (fn, types) {
   return t => {

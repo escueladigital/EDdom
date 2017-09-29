@@ -8,23 +8,34 @@
   "scripts": {
     "transpile": "rollup -c -f umd -i src/index.js -o dist/ed-dom.js -n EDdom",
     "minify": "uglifyjs -c -m -o dist/ed-dom.min.js -- dist/ed-dom.js",
-    "build": "npm run test && npm run transpile && npm run minify",
+    "build": "npm run lint && npm run test && npm run transpile && npm run minify",
+    "lint": "standard --parser babel-eslint src/**/*.js test/**/*.js",
     "test": "ava test/**.spec.js"
   },
   "devDependencies": {
     "ava": "^0.22.0",
+    "babel-eslint": "^8.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-env": "^1.6.0",
     "browser-env": "^3.2.0",
     "rollup": "^0.50.0",
     "rollup-plugin-babel": "^3.0.2",
+    "standard": "^10.0.3",
     "uglify-js": "^3.1.2"
   },
   "ava": {
     "require": [
       "babel-register",
       "./test/helpers/browser-init.js"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "HTMLElement",
+      "HTMLFormElement",
+      "HTMLCollection",
+      "NodeList"
     ]
   }
 }

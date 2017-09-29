@@ -1,22 +1,18 @@
 import { isElement, isNullable } from '../shared/utils'
 import query from '../dom/query'
 
-
 /**
  * @alias Array.prototype
  */
 const proto = Array.prototype
 
-
 export default class Stack {
-
   /**
    * Número de elementos en la colección
    *
    * @member {number}
    */
   length = 0
-
 
   /**
    * Añade elementos a la colección
@@ -42,7 +38,6 @@ export default class Stack {
     return this
   }
 
-
   /**
    * Itera los elementos de la colección
    *
@@ -56,7 +51,6 @@ export default class Stack {
     proto.forEach.call(this, iterator)
     return this
   }
-
 
   /**
    * Verifica algún elemento en la colección si cumple

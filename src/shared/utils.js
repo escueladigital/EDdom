@@ -11,7 +11,6 @@ export function isString (value) {
   return typeof value === 'string'
 }
 
-
 /**
  * Determina si el valor pasado se comporta como arreglo
  *
@@ -24,7 +23,6 @@ export function isString (value) {
 export function isArrayLike (value) {
   return isObject(value) && 'length' in value
 }
-
 
 /**
  * Determina si el valor pasado es un objeto
@@ -39,7 +37,6 @@ export function isObject (value) {
   return value !== null && typeof value === 'object'
 }
 
-
 /**
  * Determina si el valor pasado es nulo o indefinido
  *
@@ -52,7 +49,6 @@ export function isObject (value) {
 export function isNullable (value) {
   return value == null
 }
-
 
 /**
  * Determina si el valor pasado es un elemento HTML

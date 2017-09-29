@@ -169,7 +169,6 @@ var Stack = function () {
 
     this.length = 0;
   }
-
   /**
    * Número de elementos en la colección
    *
@@ -288,7 +287,6 @@ var EDdom = (_class = function (_Stack) {
    * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
    * @param {HTMLElement=} context
    */
-
 
   /**
    * Selector de elementos

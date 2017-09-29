@@ -1,13 +1,11 @@
 import { isString, isArrayLike, isNullable } from '../shared/utils'
 
-
 /**
  * Obtiene el tipo de selector
  *
  * @type {RegExp}
  */
 const SELECTOR_TYPE_REGEX = /^([#.]?)[\w-]+$/
-
 
 /**
  * Consulta y obtiene elemento(s) del DOM
@@ -33,7 +31,6 @@ export default (selector, context) => {
 
   return isNullable(selector) || isArrayLike(selector) ? selector : [selector]
 }
-
 
 /**
  * Obtiene el método más óptimo para seleccionar los elementos del DOM

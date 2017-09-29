@@ -1,20 +1,16 @@
 import test from 'ava'
 import Stack from '../src/classes/Stack'
 
-
 let stack, fakeDiv, fakeSpan
-
 
 test.before('setup fakes', () => {
   fakeDiv = document.createElement('div')
   fakeSpan = document.createElement('span')
 })
 
-
 test.beforeEach('setup `Stack` class', () => {
   stack = new Stack()
 })
-
 
 test('#add', t => {
   // TODO: test stack.add(selector)
@@ -26,7 +22,6 @@ test('#add', t => {
   t.is(stack[0], fakeDiv, 'index 0 should be `fakeDiv`')
   t.is(stack[1], fakeSpan, 'index 1 should be `fakeSpan`')
 })
-
 
 test('#each', t => {
   const fakeStack = []
@@ -44,7 +39,6 @@ test('#each', t => {
   t.is(fakeStack[1], stack[1], 'element at index 1 should be the same')
   t.is(fakeStack[2], stack[2], 'element at index 2 should be the same')
 })
-
 
 test('#some', t => {
   const fakeSpanClone = fakeSpan.cloneNode(true)

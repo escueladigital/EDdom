@@ -1,14 +1,11 @@
 import test from 'ava'
 import EDdom from '../src/classes/EDdom'
 
-
 let root
-
 
 test.before('setup `root` element', () => {
   root = document.createElement('div')
 })
-
 
 test.beforeEach('setup HTML mock', () => {
   root.innerHTML = `
@@ -24,7 +21,6 @@ test.beforeEach('setup HTML mock', () => {
   document.body.appendChild(root)
 })
 
-
 test('EDdom constructor', t => {
   const tag = 'LI'
   const $items = new EDdom(tag, root)
@@ -38,7 +34,6 @@ test('EDdom constructor', t => {
   })
 })
 
-
 test('#on', t => {
   let callCount = 0
   const $links = new EDdom('a')
@@ -51,7 +46,6 @@ test('#on', t => {
 
   t.is(callCount, 3, 'callCount should be 3')
 })
-
 
 test('#off', t => {
   let callCount = 0
@@ -70,7 +64,6 @@ test('#off', t => {
   t.is(callCount, 1, 'callCount should be 1')
 })
 
-
 test('#addClass', t => {
   const $links = new EDdom('a', root)
   const classes = 'link link-hoverable'
@@ -82,7 +75,6 @@ test('#addClass', t => {
   })
 })
 
-
 test('#removeClass', t => {
   const $items = new EDdom('li', root)
 
@@ -92,7 +84,6 @@ test('#removeClass', t => {
     t.is(className, '', `should remove \`item\` and \`active\` classes at index ${index}`)
   })
 })
-
 
 test('#toggleClass', t => {
   const $all = new EDdom('*', root)
@@ -111,7 +102,6 @@ test('#toggleClass', t => {
   })
 })
 
-
 test('#wrap', t => {
   const $nav = new EDdom('nav', root)
   const wrapper = document.createElement('header')
@@ -121,13 +111,11 @@ test('#wrap', t => {
   t.is($nav[0].parentElement.tagName, wrapper.tagName, 'should wrap correctly')
 })
 
-
 test('#hasClass', t => {
   const $all = new EDdom('*', root)
 
   t.true($all.hasClass('menu'), 'should `menu` class exists')
 })
-
 
 test.todo('#attr')
 test.todo('#append')

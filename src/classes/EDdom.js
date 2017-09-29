@@ -1,10 +1,8 @@
-import { isString, isObject, isArrayLike, isNullable, isElement } from '../shared/utils'
+import { isString, isObject, isNullable, isElement } from '../shared/utils'
 import iterable from '../decorators/iterable'
 import Stack from './Stack'
 
-
 export default class EDdom extends Stack {
-
   /**
    * Selector de elementos
    *
@@ -12,14 +10,12 @@ export default class EDdom extends Stack {
    */
   selector = ''
 
-
   /**
    * Contexto al consultar elementos
    *
    * @member {HTMLElement}
    */
   context = document.body
-
 
   /**
    * Crea una nueva instancia de EDdom
@@ -45,7 +41,6 @@ export default class EDdom extends Stack {
     }
   }
 
-
   /**
    * Escucha un evento en todos los elementos de la colección
    *
@@ -62,7 +57,6 @@ export default class EDdom extends Stack {
   on (element, event, listener) {
     element.addEventListener(event, listener)
   }
-
 
   /**
    * Deja de escuchar un evento de todos los elementos de la colección
@@ -81,7 +75,6 @@ export default class EDdom extends Stack {
     element.removeEventListener(event, listener)
   }
 
-
   /**
    * Añade una o varias clases (separadas por espacios)
    * a todos los elementos en la colección
@@ -96,7 +89,6 @@ export default class EDdom extends Stack {
   addClass (element, classes) {
     element.classList.add(...classes.split(' '))
   }
-
 
   /**
    * Remueve la o las clases (separadas por espacios)
@@ -113,7 +105,6 @@ export default class EDdom extends Stack {
     element.classList.remove(...classes.split(' '))
   }
 
-
   /**
    * Añade/remueve una clase de todos los elementos en la colección
    *
@@ -127,7 +118,6 @@ export default class EDdom extends Stack {
   toggleClass (element, klass) {
     element.classList.toggle(klass)
   }
-
 
   /**
    * Envuelva a cada elemento de la colección con el elemento dado
@@ -145,7 +135,6 @@ export default class EDdom extends Stack {
     wrapperClone.appendChild(element)
   }
 
-
   /**
    * Verifica si en la colección un elemento tiene la clase dad
    *
@@ -158,7 +147,6 @@ export default class EDdom extends Stack {
   hasClass (klass) {
     return this.some(element => element.classList.contains(klass))
   }
-
 
   /**
    * Añade/remueve atributos de los elementos en la colección
@@ -192,7 +180,6 @@ export default class EDdom extends Stack {
     return this
   }
 
-
   /**
    * Añade al final los elementos dados como hijos de cada elemento de la colección
    *
@@ -213,7 +200,6 @@ export default class EDdom extends Stack {
 
     return this
   }
-
 
   /**
    * Añade al inicio los elementos dados como hijos de cada elemento de la colección
