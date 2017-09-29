@@ -51,6 +51,7 @@ export function _getOptimumMethod (selector) {
   switch (match[1]) {
     case '#': return 'getElementById'
     case '.': return 'getElementsByClassName'
-    default : return 'getElementsByTagName'
   }
+
+  return 'getElementsByTagName'
 }
