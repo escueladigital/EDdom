@@ -4,7 +4,7 @@
   "description": "Libreria minimalista para manipular el DOM fácilmente",
   "main": "dist/ed-dom.js",
   "repository": "https://github.com/escueladigital/EDdom",
-  "license": "GPLv2",
+  "license": "GPL-2.0",
   "scripts": {
     "transpile": "rollup -c -f umd -i src/index.js -o dist/ed-dom.js -n EDdom",
     "minify": "uglifyjs -c -m -o dist/ed-dom.min.js -- dist/ed-dom.js",
