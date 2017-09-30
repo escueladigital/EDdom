@@ -66,3 +66,8 @@ export default class Stack {
     return proto.some.call(this, callback)
   }
 }
+
+if (typeof Symbol === 'function' && !isNullable(Symbol.iterator)) {
+  // Hacer iterable el Stack
+  Stack.prototype[Symbol.iterator] = proto[Symbol.iterator]
+}

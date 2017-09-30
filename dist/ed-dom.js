@@ -239,6 +239,11 @@ var Stack = function () {
   return Stack;
 }();
 
+if (typeof Symbol === 'function' && !isNullable(Symbol.iterator)) {
+  // Hacer iterable el Stack
+  Stack.prototype[Symbol.iterator] = proto[Symbol.iterator];
+}
+
 var _class;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
