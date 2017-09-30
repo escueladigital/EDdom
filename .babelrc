@@ -1,9 +1,20 @@
 {
-  "presets": [
-    "env"
-  ],
-  "plugins": [
-    "transform-decorators-legacy",
-    "transform-class-properties"
-  ]
+  "env": {
+    "development": {
+      "presets": ["env"],
+      "plugins": [
+        "transform-decorators-legacy",
+        "transform-class-properties"
+      ]
+    },
+    "production": {
+      "presets": [
+        ["env", { "modules": false, "loose": true }]
+      ],
+      "plugins": [
+        "transform-decorators-legacy",
+        "transform-class-properties"
+      ]
+    }
+  }
 }
