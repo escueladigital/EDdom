@@ -29,21 +29,33 @@ $links.on('click', e => {
 
 ## Métodos implementados y por implementar
 
-- [x] **on()**
-- [x] **off()**
-- [x] **addClass()**
-- [x] **toggleClass()**
-- [x] **removeClass()**
-- [x] **wrap()**
-- [x] **hasClass()**
-- [x] **attr()**
-- [x] **append()**
-- [x] **prepend()**
-- [ ] **children()**
-- [ ] **parent()**
-- [ ] **clone()**
-- [ ] **css()**
-- [ ] **remove()**
-- [ ] **empty()**
-- [ ] **find()**
-- [ ] **trigger()**
+### Estáticos
+
+Métodos que no necesitan de la instancia de EDdom (`$.metodo()`)
+
+- [x] **.create()**
+- [x] **.query()**
+- [ ] **.parse()**
+
+### Instancia
+
+Éstos métodos requieren de la instanciación de EDdom (`$(selector).metodo()`)
+
+- [x] **#on()**
+- [x] **#off()**
+- [x] **#addClass()**
+- [x] **#toggleClass()**
+- [x] **#removeClass()**
+- [x] **#wrap()**
+- [x] **#hasClass()**
+- [x] **#attr()**
+- [x] **#append()**
+- [x] **#prepend()**
+- [ ] **#children()**
+- [ ] **#parent()**
+- [ ] **#clone()**
+- [ ] **#css()**
+- [ ] **#remove()**
+- [ ] **#empty()**
+- [ ] **#find()**
+- [ ] **#trigger()**
