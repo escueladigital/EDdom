@@ -1,9 +1,9 @@
 import test from 'ava'
 import EDdom from '../src/classes/EDdom'
 
-let root
+let root, $fakeDiv, $fakeSpan
 
-test.before('setup `root` element', () => {
+test.before('setup `root`', () => {
   root = document.createElement('div')
 })
 
@@ -19,6 +19,11 @@ test.beforeEach('setup HTML mock', () => {
   `
 
   document.body.appendChild(root)
+})
+
+test.beforeEach('setup EDdom objects', () => {
+  $fakeDiv = new EDdom(document.createElement('div'))
+  $fakeSpan = new EDdom(document.createElement('span'))
 })
 
 test('EDdom constructor', t => {
@@ -118,7 +123,6 @@ test('#hasClass', t => {
 })
 
 test('#attr', t => {
-  const $fakeDiv = new EDdom(document.createElement('div'))
   const fakeID = 'fake-id'
   const fakeClass = 'fake-class'
 
@@ -135,5 +139,20 @@ test('#attr', t => {
   t.is($fakeDiv.attr('class'), fakeClass, `\`class\` should be ${fakeClass}`)
 })
 
-test.todo('#append')
+test('#append', t => {
+  const fakeDiv = document.createElement('div')
+  const $fakeParents = new EDdom([fakeDiv, fakeDiv.cloneNode()])
+  const outerHTML = $fakeDiv[0].outerHTML + $fakeSpan[0].outerHTML
+
+  $fakeParents.append([
+    $fakeDiv[0],
+    $fakeSpan[0]
+  ])
+
+  $fakeParents.each(fakeParent => {
+    t.is(fakeParent.children.length, 2, 'length should be 2')
+    t.is(fakeParent.innerHTML, outerHTML, 'should contain same children')
+  })
+})
+
 test.todo('#prepend')
