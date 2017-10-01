@@ -117,6 +117,23 @@ test('#hasClass', t => {
   t.true($all.hasClass('menu'), 'should `menu` class exists')
 })
 
-test.todo('#attr')
+test('#attr', t => {
+  const $fakeDiv = new EDdom(document.createElement('div'))
+  const fakeID = 'fake-id'
+  const fakeClass = 'fake-class'
+
+  $fakeDiv.attr('id', fakeID)
+
+  t.is($fakeDiv.attr('id'), fakeID, `\`id\` should be ${fakeID}`)
+
+  $fakeDiv.attr({
+    id: null,
+    class: fakeClass
+  })
+
+  t.is($fakeDiv.attr('id'), null, `\`id\` should be removed`)
+  t.is($fakeDiv.attr('class'), fakeClass, `\`class\` should be ${fakeClass}`)
+})
+
 test.todo('#append')
 test.todo('#prepend')
