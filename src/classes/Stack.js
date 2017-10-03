@@ -25,15 +25,14 @@ export default class Stack {
    * @api public
    */
   add (selector, context = document.body) {
-    const elements = query(selector, context)
-
-    if (!isNullable(elements)) {
-      proto.forEach.call(elements, element => {
+    proto.forEach.call(
+      query(selector, context) || [],
+      element => {
         if (isElement(element)) {
           this[this.length++] = element
         }
-      })
-    }
+      }
+    )
 
     return this
   }

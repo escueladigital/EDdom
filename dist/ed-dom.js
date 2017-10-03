@@ -223,15 +223,11 @@ var Stack = function () {
 
     var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.body;
 
-    var elements = query(selector, context);
-
-    if (!isNullable(elements)) {
-      proto.forEach.call(elements, function (element) {
-        if (isElement(element)) {
-          _this[_this.length++] = element;
-        }
-      });
-    }
+    proto.forEach.call(query(selector, context) || [], function (element) {
+      if (isElement(element)) {
+        _this[_this.length++] = element;
+      }
+    });
 
     return this;
   };
