@@ -8,7 +8,7 @@
   "scripts": {
     "transpile": "cross-env BABEL_ENV=production rollup -c -f umd -i src/index.js -o dist/ed-dom.js -n EDdom",
     "minify": "uglifyjs -c -m -o dist/ed-dom.min.js -- dist/ed-dom.js",
-    "build": "npm run lint && npm run test && npm run transpile && npm run minify",
+    "build": "yarn lint && yarn test && yarn transpile && yarn minify",
     "lint": "standard --parser babel-eslint src/**/*.js test/**/*.js",
     "test": "ava test/**.spec.js"
   },
