@@ -29,16 +29,16 @@ export default class EDdom extends Stack {
   constructor (selector, context) {
     super()
 
+    if (isElement(context)) {
+      this.context = context
+    }
+
     if (!isNullable(selector)) {
       this.add(selector, this.context)
 
       if (isString(selector)) {
         this.selector = selector
       }
-    }
-
-    if (isElement(context)) {
-      this.context = context
     }
   }
 

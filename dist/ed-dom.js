@@ -339,16 +339,16 @@ var EDdom = (_class = function (_Stack) {
     _this.context = document.body;
 
 
+    if (isElement(context)) {
+      _this.context = context;
+    }
+
     if (!isNullable(selector)) {
       _this.add(selector, _this.context);
 
       if (isString(selector)) {
         _this.selector = selector;
       }
-    }
-
-    if (isElement(context)) {
-      _this.context = context;
     }
     return _this;
   }
