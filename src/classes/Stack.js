@@ -24,7 +24,7 @@ export default class Stack {
    *
    * @api public
    */
-  add (selector, context = document.body) {
+  add (selector, context = this.context) {
     proto.forEach.call(
       query(selector, context) || [],
       element => {

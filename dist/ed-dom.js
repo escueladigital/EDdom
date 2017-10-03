@@ -221,7 +221,7 @@ var Stack = function () {
   Stack.prototype.add = function add(selector) {
     var _this = this;
 
-    var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.body;
+    var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.context;
 
     proto.forEach.call(query(selector, context) || [], function (element) {
       if (isElement(element)) {
