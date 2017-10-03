@@ -34,7 +34,6 @@ $links.on('click', e => {
 Métodos que no necesitan de la instancia de EDdom (`$.metodo()`)
 
 - [x] **.create()**
-- [x] **.query()**
 - [ ] **.parse()**
 
 ### Instancia

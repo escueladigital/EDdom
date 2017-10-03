@@ -607,9 +607,6 @@ edDom.create = function (tag) {
   return edDom(document.createElement(tag)).attr(attrs).append(children);
 };
 
-// Exponemos la función interna
-edDom.query = query;
-
 // Definir un alias en caso de que no esté definido
 if (window.$ == null) window.$ = edDom;
 

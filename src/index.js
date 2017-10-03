@@ -1,5 +1,4 @@
 import EDdom from './classes/EDdom'
-import query from './dom/query'
 
 /**
  * Envoltura para evitar tener que instanciar la clase `EDdom`
@@ -34,9 +33,6 @@ edDom.create = (tag, attrs = {}, children = []) => {
 
   return edDom(document.createElement(tag)).attr(attrs).append(children)
 }
-
-// Exponemos la función interna
-edDom.query = query
 
 // Definir un alias en caso de que no esté definido
 if (window.$ == null) window.$ = edDom
