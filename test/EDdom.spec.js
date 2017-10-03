@@ -40,6 +40,8 @@ test('EDdom constructor', t => {
 })
 
 test('#on', t => {
+  // TODO: Test space-separated events
+
   let callCount = 0
   const $links = new EDdom('a')
 
@@ -53,6 +55,8 @@ test('#on', t => {
 })
 
 test('#off', t => {
+  // TODO: Test space-separated events
+
   let callCount = 0
   const $ul = new EDdom('#menu', root)
 

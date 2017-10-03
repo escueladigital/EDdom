@@ -99,6 +99,38 @@ var iterable = (function (proto, key, descriptor) {
 });
 
 /**
+ * Expresión regular como separador
+ *
+ * @type {RegExp}
+ */
+var SEPARATOR_REGEX = /\s+/;
+
+/**
+ * Divide el primer argumento con el separador y lo pasa al método "decorado"
+ *
+ * @param {Object} proto
+ * @param {string} key
+ * @param {Object} descriptor
+ *
+ * @return void
+ *
+ * @api private
+ */
+var splitable = (function (proto, key, descriptor) {
+  iterable(proto, key, descriptor);
+
+  var iterableFn = descriptor.value;
+
+  descriptor.value = function (separable) {
+    for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      rest[_key - 1] = arguments[_key];
+    }
+
+    return iterableFn.call.apply(iterableFn, [this, separable.trim().split(SEPARATOR_REGEX)].concat(rest));
+  };
+});
+
+/**
  * Obtiene el tipo de selector
  *
  * @type {RegExp}
@@ -342,8 +374,10 @@ var EDdom = (_class = function (_Stack) {
    */
 
 
-  EDdom.prototype.on = function on(element, event, listener) {
-    element.addEventListener(event, listener);
+  EDdom.prototype.on = function on(element, events, listener) {
+    events.forEach(function (event) {
+      element.addEventListener(event, listener);
+    });
   };
 
   /**
@@ -360,8 +394,10 @@ var EDdom = (_class = function (_Stack) {
    */
 
 
-  EDdom.prototype.off = function off(element, event, listener) {
-    element.removeEventListener(event, listener);
+  EDdom.prototype.off = function off(element, events, listener) {
+    events.forEach(function (event) {
+      element.removeEventListener(event, listener);
+    });
   };
 
   /**
@@ -379,7 +415,7 @@ var EDdom = (_class = function (_Stack) {
   EDdom.prototype.addClass = function addClass(element, classes) {
     var _element$classList;
 
-    (_element$classList = element.classList).add.apply(_element$classList, classes.split(' '));
+    (_element$classList = element.classList).add.apply(_element$classList, classes);
   };
 
   /**
@@ -397,7 +433,7 @@ var EDdom = (_class = function (_Stack) {
   EDdom.prototype.removeClass = function removeClass(element, classes) {
     var _element$classList2;
 
-    (_element$classList2 = element.classList).remove.apply(_element$classList2, classes.split(' '));
+    (_element$classList2 = element.classList).remove.apply(_element$classList2, classes);
   };
 
   /**
@@ -532,7 +568,7 @@ var EDdom = (_class = function (_Stack) {
   };
 
   return EDdom;
-}(Stack), (_applyDecoratedDescriptor(_class.prototype, 'on', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'on'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'off', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'off'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'addClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'addClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'removeClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'removeClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'toggleClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'toggleClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'wrap', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'wrap'), _class.prototype)), _class);
+}(Stack), (_applyDecoratedDescriptor(_class.prototype, 'on', [splitable], Object.getOwnPropertyDescriptor(_class.prototype, 'on'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'off', [splitable], Object.getOwnPropertyDescriptor(_class.prototype, 'off'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'addClass', [splitable], Object.getOwnPropertyDescriptor(_class.prototype, 'addClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'removeClass', [splitable], Object.getOwnPropertyDescriptor(_class.prototype, 'removeClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'toggleClass', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'toggleClass'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'wrap', [iterable], Object.getOwnPropertyDescriptor(_class.prototype, 'wrap'), _class.prototype)), _class);
 
 /**
  * Envoltura para evitar tener que instanciar la clase `EDdom`

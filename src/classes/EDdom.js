@@ -1,5 +1,6 @@
 import { isString, isObject, isNullable, isElement } from '../shared/utils'
 import iterable from '../decorators/iterable'
+import splitable from '../decorators/splitable'
 import Stack from './Stack'
 
 export default class EDdom extends Stack {
@@ -53,9 +54,11 @@ export default class EDdom extends Stack {
    *
    * @api public
    */
-  @iterable
-  on (element, event, listener) {
-    element.addEventListener(event, listener)
+  @splitable
+  on (element, events, listener) {
+    events.forEach(event => {
+      element.addEventListener(event, listener)
+    })
   }
 
   /**
@@ -70,9 +73,11 @@ export default class EDdom extends Stack {
    *
    * @api public
    */
-  @iterable
-  off (element, event, listener) {
-    element.removeEventListener(event, listener)
+  @splitable
+  off (element, events, listener) {
+    events.forEach(event => {
+      element.removeEventListener(event, listener)
+    })
   }
 
   /**
@@ -85,9 +90,9 @@ export default class EDdom extends Stack {
    *
    * @api public
    */
-  @iterable
+  @splitable
   addClass (element, classes) {
-    element.classList.add(...classes.split(' '))
+    element.classList.add(...classes)
   }
 
   /**
@@ -100,9 +105,9 @@ export default class EDdom extends Stack {
    *
    * @api public
    */
-  @iterable
+  @splitable
   removeClass (element, classes) {
-    element.classList.remove(...classes.split(' '))
+    element.classList.remove(...classes)
   }
 
   /**
