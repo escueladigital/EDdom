@@ -27,9 +27,10 @@ test('query()', t => {
   // Fastest
   const classElements = query('.title', wrapper)
   const tagElements = query('span', wrapper)
+  const idElement = query('#form-email')
 
   t.true(classElements instanceof HTMLCollection && classElements.length === 1, 'should query with `getElementsByClassName`')
-  t.true(query('#form-email', wrapper) instanceof HTMLFormElement, 'should query with `getElementById`')
+  t.true(Array.isArray(idElement) && idElement.length === 1, 'should query with `getElementById`')
   t.true(tagElements instanceof HTMLCollection && tagElements.length === 1, 'should query with `getElementsByTagName`')
 
   // Slowest

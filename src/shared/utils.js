@@ -21,7 +21,7 @@ export function isString (value) {
  * @api private
  */
 export function isArrayLike (value) {
-  return isObject(value) && 'length' in value
+  return isObject(value) && !(value instanceof HTMLFormElement) && 'length' in value
 }
 
 /**
