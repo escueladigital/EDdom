@@ -131,62 +131,49 @@ var splitable = (function (proto, key, descriptor) {
 });
 
 /**
- * Obtiene el tipo de selector
+ * Obtiene el tipo y nombre de un selector
  *
  * @type {RegExp}
  */
-var SELECTOR_TYPE_REGEX = /^([#.]?)[\w-]+$/;
+var SELECTOR_REGEX = /^([#.]?)([\w-]+)$/;
 
 /**
- * Consulta y obtiene elemento(s) del DOM
+ * Tipos de selector como clave, y métodos de consulta como valor
  *
- * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
- * @param {HTMLElement} context
- *
- * @return {HTMLElement|NodeList|HTMLCollection|Array}
- *
- * @api private
+ * @enum {string}
  */
-var query = (function (selector, context) {
-  if (isString(selector)) {
-    var method = _getOptimumMethod(selector);
-    var isSelectorID = method === 'getElementById';
+var queryMethods = {
+  '#': 'getElementById',
+  '': 'getElementsByTagName',
+  '.': 'getElementsByClassName'
 
-    if (isSelectorID || method === 'getElementsByClassName') {
-      selector = selector.replace(/^[#.]/, '');
+  /**
+   * Consulta y obtiene elemento(s) del DOM
+   *
+   * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
+   * @param {HTMLElement} context
+   *
+   * @return {HTMLElement|NodeList|HTMLCollection|Array}
+   *
+   * @api private
+   */
+};var query = (function (selector, context) {
+  if (isString(selector)) {
+    var isSelectorID = false;
+    var queryMethod = 'querySelectorAll';
+    var selectorMatch = SELECTOR_REGEX.exec(selector);
+
+    if (selectorMatch) {
+      selector = selectorMatch[2];
+      queryMethod = queryMethods[selectorMatch[1]];
+      isSelectorID = selectorMatch[1] === '#';
     }
 
-    selector = (isSelectorID ? document : context)[method](selector);
+    selector = (isSelectorID ? document : context)[queryMethod](selector);
   }
 
   return isNullable(selector) || isArrayLike(selector) ? selector : [selector];
 });
-
-/**
- * Obtiene el método más óptimo para seleccionar los elementos del DOM
- *
- * @param {string} selector
- *
- * @return {string}
- *
- * @api private
- */
-function _getOptimumMethod(selector) {
-  var match = SELECTOR_TYPE_REGEX.exec(selector);
-
-  // Selector complejo
-  if (!match) return 'querySelectorAll';
-
-  // Selector simple
-  switch (match[1]) {
-    case '#':
-      return 'getElementById';
-    case '.':
-      return 'getElementsByClassName';
-  }
-
-  return 'getElementsByTagName';
-}
 
 function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 

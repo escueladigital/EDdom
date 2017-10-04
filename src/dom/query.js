@@ -1,11 +1,22 @@
 import { isString, isArrayLike, isNullable } from '../shared/utils'
 
 /**
- * Obtiene el tipo de selector
+ * Obtiene el tipo y nombre de un selector
  *
  * @type {RegExp}
  */
-const SELECTOR_TYPE_REGEX = /^([#.]?)[\w-]+$/
+const SELECTOR_REGEX = /^([#.]?)([\w-]+)$/
+
+/**
+ * Tipos de selector como clave, y métodos de consulta como valor
+ *
+ * @enum {string}
+ */
+const queryMethods = {
+  '#': 'getElementById',
+  '': 'getElementsByTagName',
+  '.': 'getElementsByClassName'
+}
 
 /**
  * Consulta y obtiene elemento(s) del DOM
@@ -19,39 +30,18 @@ const SELECTOR_TYPE_REGEX = /^([#.]?)[\w-]+$/
  */
 export default (selector, context) => {
   if (isString(selector)) {
-    const method = _getOptimumMethod(selector)
-    const isSelectorID = method === 'getElementById'
+    let isSelectorID = false
+    let queryMethod = 'querySelectorAll'
+    const selectorMatch = SELECTOR_REGEX.exec(selector)
 
-    if (isSelectorID || method === 'getElementsByClassName') {
-      selector = selector.replace(/^[#.]/, '')
+    if (selectorMatch) {
+      selector = selectorMatch[2]
+      queryMethod = queryMethods[selectorMatch[1]]
+      isSelectorID = selectorMatch[1] === '#'
     }
 
-    selector = (isSelectorID ? document : context)[method](selector)
+    selector = (isSelectorID ? document : context)[queryMethod](selector)
   }
 
   return isNullable(selector) || isArrayLike(selector) ? selector : [selector]
-}
-
-/**
- * Obtiene el método más óptimo para seleccionar los elementos del DOM
- *
- * @param {string} selector
- *
- * @return {string}
- *
- * @api private
- */
-export function _getOptimumMethod (selector) {
-  const match = SELECTOR_TYPE_REGEX.exec(selector)
-
-  // Selector complejo
-  if (!match) return 'querySelectorAll'
-
-  // Selector simple
-  switch (match[1]) {
-    case '#': return 'getElementById'
-    case '.': return 'getElementsByClassName'
-  }
-
-  return 'getElementsByTagName'
 }

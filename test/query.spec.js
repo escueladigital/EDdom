@@ -1,15 +1,5 @@
 import test from 'ava'
-import query, { _getOptimumMethod } from '../src/dom/query'
-
-test('_getOptimumMethod()', t => {
-  // Fastest
-  t.is(_getOptimumMethod('.test-class'), 'getElementsByClassName', 'from a class selector should be `getElementByClassName` the optimum method')
-  t.is(_getOptimumMethod('test-tag'), 'getElementsByTagName', 'from a tag selector should be `getElementsByTagName` the optimum method')
-  t.is(_getOptimumMethod('#test-id'), 'getElementById', 'from an id selector should be `getElementById` the optimum method')
-
-  // Slowest
-  t.is(_getOptimumMethod('tag .class > #id'), 'querySelectorAll', 'from a complex selector should be `querySelectorAll` the optimum method')
-})
+import query from '../src/dom/query'
 
 test('query()', t => {
   const wrapper = document.createElement('div')
