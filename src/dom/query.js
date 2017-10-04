@@ -22,9 +22,9 @@ const queryMethods = {
  * Consulta y obtiene elemento(s) del DOM
  *
  * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
- * @param {HTMLElement} context
+ * @param {HTMLElement=} context
  *
- * @return {HTMLElement|NodeList|HTMLCollection|Array}
+ * @return {NodeList|HTMLCollection|Array}
  *
  * @api private
  */
@@ -42,5 +42,6 @@ export default (selector, context) => {
     selector = context[queryMethod](selector)
   }
 
-  return isNullable(selector) || isArrayLike(selector) ? selector : [selector]
+  return isNullable(selector) ? []
+    : isArrayLike(selector) ? selector : [selector]
 }

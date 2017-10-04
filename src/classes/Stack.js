@@ -26,7 +26,7 @@ export default class Stack {
    */
   add (selector, context = this.context) {
     proto.forEach.call(
-      query(selector, context) || [],
+      query(selector, context),
       element => {
         if (isElement(element)) {
           this[this.length++] = element

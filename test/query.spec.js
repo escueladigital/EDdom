@@ -28,7 +28,7 @@ test('query()', t => {
 
   t.true(queryElements instanceof NodeList && queryElements.length === 1, 'should query with `querySelectorAll`')
 
-  t.is(query(), undefined, 'should return undefined with no arguments')
-  t.is(query(null), null, 'should return null with null selector')
-  t.is(query(undefined), undefined, 'should return undefined with undefined selector')
+  t.deepEqual(query(), [], 'should return an empty array with no arguments')
+  t.deepEqual(query(null), [], 'should return an empty array with null selector')
+  t.deepEqual(query(undefined), [], 'should return an empty array with undefined selector')
 })

@@ -151,9 +151,9 @@ var queryMethods = {
    * Consulta y obtiene elemento(s) del DOM
    *
    * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
-   * @param {HTMLElement} context
+   * @param {HTMLElement=} context
    *
-   * @return {HTMLElement|NodeList|HTMLCollection|Array}
+   * @return {NodeList|HTMLCollection|Array}
    *
    * @api private
    */
@@ -171,7 +171,7 @@ var queryMethods = {
     selector = context[queryMethod](selector);
   }
 
-  return isNullable(selector) || isArrayLike(selector) ? selector : [selector];
+  return isNullable(selector) ? [] : isArrayLike(selector) ? selector : [selector];
 });
 
 function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -209,7 +209,7 @@ var Stack = function () {
 
     var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.context;
 
-    proto.forEach.call(query(selector, context) || [], function (element) {
+    proto.forEach.call(query(selector, context), function (element) {
       if (isElement(element)) {
         _this[_this.length++] = element;
       }
