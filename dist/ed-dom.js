@@ -561,7 +561,7 @@ var EDdom = (_class = function (_Stack) {
  *
  * @api public
  */
-function edDom() {
+function $() {
   for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
@@ -581,7 +581,7 @@ function edDom() {
  *
  * @api public
  */
-edDom.create = function (tag) {
+$.create = function (tag) {
   var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var children = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
@@ -590,12 +590,14 @@ edDom.create = function (tag) {
     attrs = {};
   }
 
-  return edDom(document.createElement(tag)).attr(attrs).append(children);
+  return $(document.createElement(tag)).attr(attrs).append(children);
 };
 
-// Definir un alias en caso de que no esté definido
-if (window.$ == null) window.$ = edDom;
-
-return edDom;
+return $;
 
 })));
+
+// Definir un alias global en caso de que no esté definido
+if (typeof window === 'object' && window.$ == null) {
+  window.$ = window.EDdom
+}

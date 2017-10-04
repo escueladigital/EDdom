@@ -1,0 +1,4 @@
+// Definir un alias global en caso de que no esté definido
+if (typeof window === 'object' && window.$ == null) {
+  window.$ = window.EDdom
+}

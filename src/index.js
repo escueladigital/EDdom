@@ -9,7 +9,7 @@ import EDdom from './classes/EDdom'
  *
  * @api public
  */
-export default function edDom (...args) {
+export default function $ (...args) {
   return new EDdom(...args)
 }
 
@@ -25,14 +25,11 @@ export default function edDom (...args) {
  *
  * @api public
  */
-edDom.create = (tag, attrs = {}, children = []) => {
+$.create = (tag, attrs = {}, children = []) => {
   if (Array.isArray(attrs)) {
     children = attrs
     attrs = {}
   }
 
-  return edDom(document.createElement(tag)).attr(attrs).append(children)
+  return $(document.createElement(tag)).attr(attrs).append(children)
 }
-
-// Definir un alias en caso de que no esté definido
-if (window.$ == null) window.$ = edDom
