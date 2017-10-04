@@ -159,17 +159,16 @@ var queryMethods = {
    */
 };var query = (function (selector, context) {
   if (isString(selector)) {
-    var isSelectorID = false;
     var queryMethod = 'querySelectorAll';
     var selectorMatch = SELECTOR_REGEX.exec(selector);
 
     if (selectorMatch) {
       selector = selectorMatch[2];
       queryMethod = queryMethods[selectorMatch[1]];
-      isSelectorID = selectorMatch[1] === '#';
+      if (selectorMatch[1] === '#') context = document;
     }
 
-    selector = (isSelectorID ? document : context)[queryMethod](selector);
+    selector = context[queryMethod](selector);
   }
 
   return isNullable(selector) || isArrayLike(selector) ? selector : [selector];
