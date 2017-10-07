@@ -135,7 +135,7 @@ var splitable = (function (proto, key, descriptor) {
  *
  * @type {RegExp}
  */
-var SELECTOR_REGEX = /^([#.]?)([\w-]+)$/;
+var SELECTOR_REGEX = /^([#.]?)(\*|[\w-]+)$/;
 
 /**
  * Tipos de selector como clave, y métodos de consulta como valor

@@ -3,7 +3,7 @@
  *
  * @type {RegExp}
  */
-const SELECTOR_REGEX = /^([#.]?)([\w-]+)$/
+const SELECTOR_REGEX = /^([#.]?)(\*|[\w-]+)$/
 
 /**
  * Tipos de selector como clave, y métodos de consulta como valor
