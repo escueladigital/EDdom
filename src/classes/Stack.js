@@ -1,4 +1,4 @@
-import { isElement, isNullable } from '../shared/utils'
+import { isElement, isArrayLike, isNullable } from '../shared/utils'
 import query from '../dom/query'
 
 /**
@@ -25,14 +25,13 @@ export default class Stack {
    * @api public
    */
   add (selector, context = this.context) {
-    proto.forEach.call(
-      query(selector, context),
-      element => {
-        if (isElement(element)) {
-          this[this.length++] = element
-        }
-      }
-    )
+    if (isElement(selector)) {
+      this[this.length++] = selector
+    } else if (isArrayLike(selector)) {
+      proto.forEach.call(selector, this.add.bind(this))
+    } else {
+      this.add(query(selector, context))
+    }
 
     return this
   }

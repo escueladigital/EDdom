@@ -14,9 +14,9 @@ test.beforeEach('setup `Stack` class', () => {
 
 test('#add', t => {
   // TODO: test stack.add(selector)
+  // TODO: test stack.add(element)
 
-  stack.add([fakeDiv, 'invalid entry'])
-  stack.add(fakeSpan)
+  stack.add([fakeDiv, fakeSpan])
 
   t.is(stack.length, 2, 'length should be 2')
   t.is(stack[0], fakeDiv, 'index 0 should be `fakeDiv`')

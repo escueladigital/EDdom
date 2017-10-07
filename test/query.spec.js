@@ -27,8 +27,4 @@ test('query()', t => {
   const queryElements = query('input.email-input[type="email"]', wrapper)
 
   t.true(queryElements instanceof NodeList && queryElements.length === 1, 'should query with `querySelectorAll`')
-
-  t.deepEqual(query(), [], 'should return an empty array with no arguments')
-  t.deepEqual(query(null), [], 'should return an empty array with null selector')
-  t.deepEqual(query(undefined), [], 'should return an empty array with undefined selector')
 })

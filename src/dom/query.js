@@ -1,5 +1,3 @@
-import { isString, isArrayLike, isNullable } from '../shared/utils'
-
 /**
  * Obtiene el tipo y nombre de un selector
  *
@@ -21,27 +19,29 @@ const queryMethods = {
 /**
  * Consulta y obtiene elemento(s) del DOM
  *
- * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
- * @param {HTMLElement=} context
+ * @param {string} selector
+ * @param {HTMLElement} context
  *
  * @return {NodeList|HTMLCollection|Array}
  *
  * @api private
  */
 export default (selector, context) => {
-  if (isString(selector)) {
-    let queryMethod = 'querySelectorAll'
-    const selectorMatch = SELECTOR_REGEX.exec(selector)
+  let shouldWrapResult = false
+  let queryMethod = 'querySelectorAll'
+  const selectorMatch = SELECTOR_REGEX.exec(selector)
 
-    if (selectorMatch) {
-      selector = selectorMatch[2]
-      queryMethod = queryMethods[selectorMatch[1]]
-      if (selectorMatch[1] === '#') context = document
+  if (selectorMatch) {
+    selector = selectorMatch[2]
+    queryMethod = queryMethods[selectorMatch[1]]
+
+    if (selectorMatch[1] === '#') {
+      context = document
+      shouldWrapResult = true
     }
-
-    selector = context[queryMethod](selector)
   }
 
-  return isNullable(selector) ? []
-    : isArrayLike(selector) ? selector : [selector]
+  const elements = context[queryMethod](selector)
+
+  return shouldWrapResult ? [elements] : elements
 }

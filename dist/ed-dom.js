@@ -150,28 +150,31 @@ var queryMethods = {
   /**
    * Consulta y obtiene elemento(s) del DOM
    *
-   * @param {(string|HTMLElement|NodeList|HTMLCollection|Array)=} selector
-   * @param {HTMLElement=} context
+   * @param {string} selector
+   * @param {HTMLElement} context
    *
    * @return {NodeList|HTMLCollection|Array}
    *
    * @api private
    */
 };var query = (function (selector, context) {
-  if (isString(selector)) {
-    var queryMethod = 'querySelectorAll';
-    var selectorMatch = SELECTOR_REGEX.exec(selector);
+  var shouldWrapResult = false;
+  var queryMethod = 'querySelectorAll';
+  var selectorMatch = SELECTOR_REGEX.exec(selector);
 
-    if (selectorMatch) {
-      selector = selectorMatch[2];
-      queryMethod = queryMethods[selectorMatch[1]];
-      if (selectorMatch[1] === '#') context = document;
+  if (selectorMatch) {
+    selector = selectorMatch[2];
+    queryMethod = queryMethods[selectorMatch[1]];
+
+    if (selectorMatch[1] === '#') {
+      context = document;
+      shouldWrapResult = true;
     }
-
-    selector = context[queryMethod](selector);
   }
 
-  return isNullable(selector) ? [] : isArrayLike(selector) ? selector : [selector];
+  var elements = context[queryMethod](selector);
+
+  return shouldWrapResult ? [elements] : elements;
 });
 
 function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -205,15 +208,15 @@ var Stack = function () {
    * @api public
    */
   Stack.prototype.add = function add(selector) {
-    var _this = this;
-
     var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.context;
 
-    proto.forEach.call(query(selector, context), function (element) {
-      if (isElement(element)) {
-        _this[_this.length++] = element;
-      }
-    });
+    if (isElement(selector)) {
+      this[this.length++] = selector;
+    } else if (isArrayLike(selector)) {
+      proto.forEach.call(selector, this.add.bind(this));
+    } else {
+      this.add(query(selector, context));
+    }
 
     return this;
   };
